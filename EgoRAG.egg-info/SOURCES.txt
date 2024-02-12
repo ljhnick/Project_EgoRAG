@@ -1,0 +1,10 @@
+setup.py
+EgoRAG/__init__.py
+EgoRAG/egoRAG.py
+EgoRAG.egg-info/PKG-INFO
+EgoRAG.egg-info/SOURCES.txt
+EgoRAG.egg-info/dependency_links.txt
+EgoRAG.egg-info/not-zip-safe
+EgoRAG.egg-info/top_level.txt
+EgoRAG/datasets/__init__.py
+EgoRAG/datasets/video_loader.py
