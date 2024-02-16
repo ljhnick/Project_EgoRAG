@@ -118,6 +118,7 @@ def eval_spatial():
     # filtered_data = data_eval
 
     target_vid_data = filtered_data[data_eval['video_uid'] == '18e84829-901a-414d-8a2b-d1d2b3244db7']
+    print(len(filtered_data))
     print(len(target_vid_data))
     
     

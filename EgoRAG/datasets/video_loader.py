@@ -34,9 +34,10 @@ class Ego4DDataLoader():
     def load_video(self, video_uid):
         # load the video
         self.video_uid = video_uid
-        video_path = os.path.join(self.video_folder_path, video_uid)
+        video_path = os.path.join(self.video_folder_path, video_uid + '.mp4')
         
         self.video_cap = cv2.VideoCapture(video_path)
+        self.fps = self.video_cap.get(cv2.CAP_PROP_FPS)
         self.is_video_loaded = True
 
         # load annotation of the video
@@ -55,7 +56,7 @@ class Ego4DDataLoader():
     def _get_video_frame_at_timestamp(self, timestamp_frame):
         if self.is_video_loaded is False or self.video_cap is None:
             raise Exception('Video is not loaded yet')
-        fps = self.video_cap.get(cv2.CAP_PROP_FPS)
+        self.fps = self.video_cap.get(cv2.CAP_PROP_FPS)
         framenumber = int(timestamp_frame)
         self.video_cap.set(cv2.CAP_PROP_POS_FRAMES, framenumber)
         success, frame = self.video_cap.read()

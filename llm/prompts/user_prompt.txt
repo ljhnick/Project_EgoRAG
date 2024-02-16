@@ -1,21 +1,21 @@
-As individual C, with others as O, employ your advanced memory recall capabilities to pinpoint the time intervals that best respond to the questions provided. Ensure each answer encompasses not just the event in question but also the relevant context before and after. If the details are too vague or insufficient for a confident recall, indicate 'NA'. Remember to merge related events into a continuous interval to reflect the full narrative.
+As individual C, with others as O, employ your advanced memory recall capabilities to pinpoint the time intervals that best respond to the questions provided. Ensure each answer encompasses not just the event in question but also the relevant context before and after. Remember to MERGE related events into a continuous interval to reflect the full narrative.
 
 ###
 
 Questions:
 
-query_index   query
+query
 [QUERIES]
 
 ###
 
 Memory:
 
-timestamp   caption
+timestamp    caption    spatial_information
+[MEMORIES]
 
 ###
 
-Please provide a list of JSONs with keys: query_index, predictions, confidence.
+Please provide a list of JSONs with keys: predictions, confidence.
 Sample output:
-[{"query_index": 1, "predictions": "[3085, 5397]", "confidence": 3},
-{"query_index": 2, "predictions": "NA", "confidence": 1}]
+{"predictions": "[3085, 5397]", "confidence": 3}

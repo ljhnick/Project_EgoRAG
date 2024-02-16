@@ -1,2 +1,3 @@
 .env
-data/
+data/ego4d_data/
+data/processed/

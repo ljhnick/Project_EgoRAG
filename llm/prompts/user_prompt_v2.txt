@@ -1,4 +1,4 @@
-As individual C, with others as O, employ your advanced memory recall capabilities to pinpoint the time intervals that best respond to the questions provided. Ensure each answer encompasses not just the event in question but also the relevant context before and after. Remember to merge related events into a continuous interval to reflect the full narrative.
+As individual C, with others as O, employ your advanced memory recall capabilities to pinpoint the time intervals that best respond to the questions provided. Ensure each answer encompasses not just the event in question but also the relevant context before and after. Remember to MERGE related events into a continuous interval to reflect the full narrative.
 
 ###
 
@@ -13,7 +13,6 @@ Memory:
 [PART_TWO]
 ###
 
-Please provide a list of JSONs with keys:predictions, confidence.
+Please provide a list of JSONs with keys: predictions, confidence.
 Sample output:
-
 {"predictions": "[3085, 5397]", "confidence": 3}
