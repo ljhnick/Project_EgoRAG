@@ -180,6 +180,8 @@ class EgoRAG():
             video_end_frame = row['video_end_frame']
             template = row['template']
 
+            if not isinstance(query, str):
+                continue
 
             # wrong
             # multimodal_input = self.generate_keyframes_captions_pairs(captions, video_start_frame, video_end_frame, clip_start_frame, clip_end_frame, total_keyframes=10)
@@ -194,11 +196,17 @@ class EgoRAG():
                 is_sucess, result = self.llm.call_gpt_api_text_and_image(prompt)
             if not is_sucess:
                 continue
-            result = result.choices[0].message.content
-            result_json = result.split('{')[1].split('}')[0]
-            result_json = json.loads('{' + result_json + '}')
 
-            result_parsed = parse_result(result_json)
+            try:
+                result = result.choices[0].message.content
+                result_json = result.split('{')[1].split('}')[0]
+                result_json = json.loads('{' + result_json + '}')
+
+                result_parsed = parse_result(result_json)
+
+            except Exception as e:
+                print(e)
+                continue
 
             processed_entry = {}
             processed_entry['video_uid'] = self.video_data['video_uid']
