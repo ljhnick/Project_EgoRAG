@@ -22,7 +22,7 @@ class Ego4DDataLoader():
     def __init__(self,
                  video_folder_path,
                  annotation_path,
-                 is_spatial_only=True):
+                 is_spatial_only=False):
         self.video_folder_path = video_folder_path
         self.annotation_path = annotation_path
 

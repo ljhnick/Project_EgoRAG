@@ -1,4 +1,4 @@
-As individual C, with others as O, employ your advanced memory recall capabilities to pinpoint the time intervals that best respond to the questions provided. Ensure each answer encompasses not just the event in question but also the relevant context before and after. Remember to MERGE related events into a continuous interval to reflect the full narrative.
+As individual C, with others as O, employ your advanced memory recall capabilities to pinpoint the time intervals that best respond to the questions provided. Leverage the keyframe paired with each memory entry to extract spatial information for answering related questions. Ensure each answer encompasses not just the event in question but also the relevant context before and after. Remember to MERGE related events into a continuous interval to reflect the full narrative.
 
 ###
 

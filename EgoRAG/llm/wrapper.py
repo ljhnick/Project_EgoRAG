@@ -17,15 +17,15 @@ def convert_to_base64(image_array):
 
 class GPTWrapper():
 
-    system_prompt_path = '/Users/jiahaoli/Library/CloudStorage/Dropbox/02_Career/Projects/Project_EgoRAG/llm/prompts/system_prompt_v2.txt'
-    user_prompt_path_v2 = '/Users/jiahaoli/Library/CloudStorage/Dropbox/02_Career/Projects/Project_EgoRAG/llm/prompts/user_prompt_v2.txt'
-    user_prompt_path = '/Users/jiahaoli/Library/CloudStorage/Dropbox/02_Career/Projects/Project_EgoRAG/llm/prompts/user_prompt.txt'
+    system_prompt_path = '/home/nick/Research/Project_EgoRAG/llm/prompts/system_prompt_v2.txt'
+    user_prompt_path_v2 = '/home/nick/Research/Project_EgoRAG/llm/prompts/user_prompt_v2.txt'
+    user_prompt_path = '/home/nick/Research/Project_EgoRAG/llm/prompts/user_prompt.txt'
 
     def __init__(self):
         self.client = OpenAI()
-        self.system_prompt = open(self.system_prompt_path, 'r').read()
-        self.user_prompt = open(self.user_prompt_path_v2, 'r').read()
-        self.user_prompt_text_only = open(self.user_prompt_path, 'r').read()
+        self.system_prompt = open(self.system_prompt_path, 'r', encoding='utf-8').read()
+        self.user_prompt = open(self.user_prompt_path_v2, 'r', encoding='utf-8').read()
+        self.user_prompt_text_only = open(self.user_prompt_path, 'r', encoding='utf-8').read()
         self.parse_user_prompt()
 
     def parse_user_prompt(self):
@@ -67,7 +67,7 @@ class GPTWrapper():
                 caption_text = caption['caption'].replace('#C ', '')
                 spatial_text = caption['spatial_description']
 
-                caption_text = f"{start_timestamp}-{end_timestamp}\t{caption_text}\t{spatial_text}\n"
+                caption_text = f" {start_timestamp}-{end_timestamp}\t{caption_text}\t{spatial_text}\n"
 
                 caption_prompt += caption_text
             user_prompt = user_prompt.replace('[MEMORIES]', caption_prompt)
@@ -91,7 +91,7 @@ class GPTWrapper():
                 
                 caption_text = caption['caption'].replace('#C ', '')
 
-                caption_text = f"{start_timestamp}-{end_timestamp}\t{caption_text}\n"
+                caption_text = f"{start_timestamp}-{end_timestamp}\t{caption_text}\n "
                 # if timestamp < clip_start_frame or timestamp > clip_end_frame:
                 #     continue
 

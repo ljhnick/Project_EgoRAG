@@ -1,5 +1,6 @@
 import argparse
 import json
+import os
 import pandas as pd
 from EgoRAG.egoRAG import EgoRAG
 from tools.eval_utils import check_if_overlap, check_iou
@@ -10,9 +11,9 @@ current_time = datetime.now().strftime("%Y%m%d-%H%M%S")
 
 parser = argparse.ArgumentParser(description='Run the pipeline')
 args = parser.add_argument('--video_uids', type=str, help='The file containing the video uids')
-args = parser.add_argument('--video_folder_path', type=str, default='/Users/jiahaoli/Library/CloudStorage/Dropbox/02_Career/Projects/Project_EgoRAG/data/ego4d_data/v2/full_scale')
-args = parser.add_argument('--annotation_path', type=str, default='/Users/jiahaoli/Library/CloudStorage/Dropbox/02_Career/Projects/Project_EgoRAG/data/data_process_val_all.json')
-args = parser.add_argument('--result_path', type=str, default=f'/Users/jiahaoli/Library/CloudStorage/Dropbox/02_Career/Projects/Project_EgoRAG/data/processed/multimodal_gt_text_only_all_videos_{current_time}.csv')
+args = parser.add_argument('--video_folder_path', type=str, default='/home/nick/Research/Project_EgoRAG/data/ego4d_data/v2/full_scale')
+args = parser.add_argument('--annotation_path', type=str, default='/home/nick/Research/Project_EgoRAG/data/data_process_val_all.json')
+args = parser.add_argument('--result_path', type=str, default=f'/home/nick/Research/Project_EgoRAG/data/processed/multimodal_gt_text_only_all_videos_{current_time}.csv')
 args = parser.add_argument('--text_only', type=bool, default=True)
 args = parser.parse_args()
 
@@ -50,19 +51,24 @@ def eval_result(result_pd):
 
 def main():
     # 1. load video using uids; 2. load captions (either from ground truth or running caption model or from existed results)
-    video_uids_path = '/Users/jiahaoli/Library/CloudStorage/Dropbox/02_Career/Projects/Project_EgoRAG/data/val_video_ids_first_50.txt'
+    video_uids_path = '/home/nick/Research/Project_EgoRAG/data/val_video_ids_all.txt'
     video_uids = open(video_uids_path, 'r').read().split('\n')
 
-    existed_result = '/Users/jiahaoli/Library/CloudStorage/Dropbox/02_Career/Projects/Project_EgoRAG/data/processed/processed_results_multimodal_gt_keyframe_20240214-205439.csv'
-    existed_result = pd.read_csv(existed_result)
-    existed_uids = existed_result['video_uid'].unique()
+    temp_path = '/home/nick/Research/Project_EgoRAG/data/processed/temp'
+    processed_videos = os.listdir(temp_path)
+    processed_video_uids = []
+    for video in processed_videos:
+        processed_video_uids.append(video.split('.')[0])
+    # existed_result = '/Users/jiahaoli/Library/CloudStorage/Dropbox/02_Career/Projects/Project_EgoRAG/data/processed/processed_results_multimodal_gt_keyframe_20240214-205439.csv'
+    # existed_result = pd.read_csv(existed_result)
+    # existed_uids = existed_result['video_uid'].unique()
 
     result_df = None
     egoRAG = EgoRAG(video_folder_path=args.video_folder_path, annotation_path=args.annotation_path, processed_saving_path=args.result_path, text_only=args.text_only, spatial_text=False)
 
     error_uids = []
     for video_uid in tqdm(video_uids):
-        if video_uid in existed_uids:
+        if video_uid in processed_video_uids:
             continue
         try:
             egoRAG.load_video(video_uid)
@@ -80,7 +86,7 @@ def main():
         #     continue
         # processed_result = egoRAG.update_result()
 
-        temp_save_path = '/Users/jiahaoli/Library/CloudStorage/Dropbox/02_Career/Projects/Project_EgoRAG/data/processed/temp/'
+        temp_save_path = '/home/nick/Research/Project_EgoRAG/data/processed/temp/'
         temp_save_path = temp_save_path + video_uid + '.csv'
         processed_result.to_csv(temp_save_path, index=False)
         if result_df is None:
